@@ -10,7 +10,7 @@ import SelectField from "@/app/components/SelectField";
 import TextAreaField from "@/app/components/TextAreaField";
 import { Alert, AlertTitle, AlertDescription } from "@/app/components/ui/alert";
 
-import { AlertCircle, Clock } from "lucide-react";
+import { AlertCircle, Clock, Sparkles } from "lucide-react";
 
 type FormData = {
     name: string;
@@ -143,80 +143,100 @@ const RegistrationForm = () => {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-purple-50 to-indigo-50 py-12 px-4">
+        <div className="min-h-screen py-12 px-4 bg-gradient-to-r from-gray-900 to-gray-800">
+            <div className="absolute inset-0 overflow-hidden rounded-xl">
+                <div className="absolute inset-0 opacity-10">
+                    <div className="absolute top-0 left-0 w-40 h-40 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl animate-blob"></div>
+                    <div className="absolute top-0 right-0 w-40 h-40 bg-yellow-500 rounded-full mix-blend-multiply filter blur-xl animate-blob animation-delay-2000"></div>
+                    <div className="absolute bottom-0 left-0 w-40 h-40 bg-pink-500 rounded-full mix-blend-multiply filter blur-xl animate-blob animation-delay-4000"></div>
+                </div>
+            </div>
+
             <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="max-w-xl mx-auto"
+                className="max-w-2xl mx-auto"
             >
                 <ToastContainer position="top-right" />
 
-                <Alert className="mb-6 border-amber-200 bg-amber-50">
-                    <Clock className="h-4 w-4" />
-                    <AlertTitle>Registration Deadline</AlertTitle>
-                    <AlertDescription>
+                <Alert className="mb-8 border-amber-300 bg-amber-50 shadow-lg">
+                    <Clock className="h-5 w-5 text-amber-600" />
+                    <AlertTitle className="text-amber-800 font-semibold">Registration Deadline</AlertTitle>
+                    <AlertDescription className="text-amber-700">
                         Time remaining: {timeLeft.days} days, {timeLeft.hours} hours, and {timeLeft.minutes} minutes
                     </AlertDescription>
                 </Alert>
 
                 <motion.div
-                    className="bg-white p-8 rounded-xl shadow-lg border border-purple-100"
+                    className="backdrop-blur-lg bg-white p-8 rounded-2xl shadow-xl border border-purple-100"
                     initial={{ scale: 0.95 }}
                     animate={{ scale: 1 }}
                     transition={{ duration: 0.3 }}
                 >
-                    <h2 className="text-2xl font-semibold text-purple-800 mb-6 text-center">
-                        Talent Registration
-                    </h2>
+                    <div className="flex items-center justify-center gap-3 mb-8">
+                        <Sparkles className="h-8 w-8 text-purple-600" />
+                        <h2 className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-purple-800 bg-clip-text text-transparent">
+                            Talent Registration
+                        </h2>
+                    </div>
 
-                    <form onSubmit={handleSubmit} className="space-y-6">
+                    <form onSubmit={handleSubmit} className="space-y-8">
                         {Object.keys(errors).length > 0 && (
                             <motion.div
                                 initial={{ opacity: 0, y: -10 }}
                                 animate={{ opacity: 1, y: 0 }}
-                                className="bg-red-50 p-4 rounded-lg border border-red-200"
+                                className="bg-red-50 p-4 rounded-xl border border-red-200 shadow-sm"
                             >
                                 <div className="flex items-center gap-2 text-red-800">
-                                    <AlertCircle className="h-4 w-4" />
+                                    <AlertCircle className="h-5 w-5" />
                                     <span className="font-medium">Please correct the following errors:</span>
                                 </div>
                             </motion.div>
                         )}
 
                         <motion.div
-                            className="space-y-4"
+                            className="space-y-6"
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             transition={{ delay: 0.2 }}
                         >
-                            <InputField
-                                label="Name"
-                                value={formData.name}
-                                onChange={handleInputChange("name")}
-                                error={errors.name}
+                            <div className="relative">
+                                <InputField
+                                    label="Name"
+                                    value={formData.name}
+                                    onChange={handleInputChange("name")}
+                                    error={errors.name}
+                                />
+                            </div>
 
-                            />
-                            <InputField
-                                label="Address"
-                                value={formData.address}
-                                onChange={handleInputChange("address")}
-                                error={errors.address}
-                            />
-                            <InputField
-                                label="Contact"
-                                type="tel"
-                                value={formData.contact}
-                                onChange={handleInputChange("contact")}
-                                error={errors.contact}
-                                pattern="^[0-9]{10}$"
-                                placeholder="10-digit mobile number"
-                            />
+                            <div className="relative">
+                                <InputField
+                                    label="Address"
+                                    value={formData.address}
+                                    onChange={handleInputChange("address")}
+                                    error={errors.address}
+                                />
+                            </div>
+
+                            <div className="relative">
+                                <InputField
+                                    label="Contact"
+                                    type="tel"
+                                    value={formData.contact}
+                                    onChange={handleInputChange("contact")}
+                                    error={errors.contact}
+                                    pattern="^[0-9]{10}$"
+                                    placeholder="10-digit mobile number"
+                                />
+                            </div>
+
                             <SelectField
                                 label="Talent Category"
                                 value={formData.category}
                                 onChange={handleInputChange("category")}
                                 error={errors.category}
                             />
+
                             {formData.category === "other" && (
                                 <motion.div
                                     initial={{ opacity: 0, height: 0 }}
@@ -228,7 +248,7 @@ const RegistrationForm = () => {
                                         value={formData.otherTalent}
                                         onChange={handleInputChange("otherTalent")}
                                         error={errors.otherTalent}
-                                        placeholder="Describe your unique talent"
+                                        placeholder="Tell us about your unique talent"
                                     />
                                 </motion.div>
                             )}
@@ -236,14 +256,14 @@ const RegistrationForm = () => {
 
                         <motion.button
                             type="submit"
-                            className="w-full bg-purple-600 text-white py-3 rounded-lg shadow-md hover:bg-purple-700 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                            className="w-full bg-gradient-to-r from-purple-600 to-purple-800 text-white py-4 rounded-xl shadow-lg hover:shadow-xl hover:from-purple-700 hover:to-purple-900 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed font-semibold text-lg"
                             disabled={isSubmitting}
                             whileHover={{ scale: 1.02 }}
                             whileTap={{ scale: 0.98 }}
                         >
                             {isSubmitting ? (
-                                <span className="flex items-center justify-center gap-2">
-                                    <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                                <span className="flex items-center justify-center gap-3">
+                                    <div className="w-6 h-6 border-3 border-white border-t-transparent rounded-full animate-spin" />
                                     Submitting...
                                 </span>
                             ) : (
@@ -255,22 +275,22 @@ const RegistrationForm = () => {
             </motion.div>
 
             <style jsx global>{`
-                @keyframes shake {
-                    0%, 100% { transform: translateX(0); }
-                    25% { transform: translateX(-10px); }
-                    75% { transform: translateX(10px); }
-                }
-                
-                .shake {
-                    animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
-                }
+            @keyframes shake {
+                0%, 100% { transform: translateX(0); }
+                25% { transform: translateX(-10px); }
+                75% { transform: translateX(10px); }
+            }
+            
+            .shake {
+                animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+            }
 
-                .error-message {
-                    color: #dc2626;
-                    font-size: 0.875rem;
-                    margin-top: 0.25rem;
-                }
-            `}</style>
+            .error-message {
+                color: #dc2626;
+                font-size: 0.875rem;
+                margin-top: 0.25rem;
+            }
+        `}</style>
         </div>
     );
 };
