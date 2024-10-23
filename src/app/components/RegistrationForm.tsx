@@ -175,8 +175,8 @@ const RegistrationForm = () => {
                 >
                     <div className="flex items-center justify-center gap-3 mb-8">
                         <Sparkles className="h-8 w-8 text-purple-600" />
-                        <h2 className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-purple-800 bg-clip-text text-transparent">
-                            Talent Registration
+                        <h2 className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-purple-800 p-2 bg-clip-text text-transparent">
+                            તળ વિસનગર નાગર સમાજ
                         </h2>
                     </div>
 
