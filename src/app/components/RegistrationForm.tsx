@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { useState, useEffect, FormEvent } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
@@ -15,6 +15,8 @@ import { AlertCircle, Clock, Sparkles } from "lucide-react";
 type FormData = {
     name: string;
     address: string;
+    district: string;
+    state: string;
     contact: string;
     category: string;
     otherTalent: string;
@@ -24,6 +26,8 @@ const RegistrationForm = () => {
     const [formData, setFormData] = useState<FormData>({
         name: "",
         address: "",
+        district: "",
+        state: "",
         contact: "",
         category: "",
         otherTalent: "",
@@ -75,6 +79,8 @@ const RegistrationForm = () => {
 
         if (!formData.name.trim()) newErrors.name = "Name is required.";
         if (!formData.address.trim()) newErrors.address = "Address is required.";
+        if (!formData.district.trim()) newErrors.district = "District is required.";
+        if (!formData.state.trim()) newErrors.state = "State is required.";
         if (!formData.contact.trim()) {
             newErrors.contact = "Contact number is required.";
         } else if (!formData.contact.match(/^[0-9]{10}$/)) {
@@ -131,6 +137,8 @@ const RegistrationForm = () => {
             setFormData({
                 name: "",
                 address: "",
+                district: "",
+                state: "",
                 contact: "",
                 category: "",
                 otherTalent: "",
@@ -220,77 +228,64 @@ const RegistrationForm = () => {
 
                             <div className="relative">
                                 <InputField
+                                    label="District"
+                                    value={formData.district}
+                                    onChange={handleInputChange("district")}
+                                    error={errors.district}
+                                />
+                            </div>
+
+                            <div className="relative">
+                                <InputField
+                                    label="State"
+                                    value={formData.state}
+                                    onChange={handleInputChange("state")}
+                                    error={errors.state}
+                                />
+                            </div>
+
+                            <div className="relative">
+                                <InputField
                                     label="Contact"
                                     type="tel"
                                     value={formData.contact}
                                     onChange={handleInputChange("contact")}
                                     error={errors.contact}
                                     pattern="^[0-9]{10}$"
-                                    placeholder="10-digit mobile number"
                                 />
                             </div>
 
                             <SelectField
-                                label="Talent Category"
+                                label="Category"
                                 value={formData.category}
                                 onChange={handleInputChange("category")}
                                 error={errors.category}
                             />
 
                             {formData.category === "other" && (
-                                <motion.div
-                                    initial={{ opacity: 0, height: 0 }}
-                                    animate={{ opacity: 1, height: "auto" }}
-                                    exit={{ opacity: 0, height: 0 }}
-                                >
+                                <div className="relative">
                                     <TextAreaField
-                                        label="Describe Your Talent"
+                                        label="Please describe your talent"
                                         value={formData.otherTalent}
                                         onChange={handleInputChange("otherTalent")}
                                         error={errors.otherTalent}
-                                        placeholder="Tell us about your unique talent"
                                     />
-                                </motion.div>
+                                </div>
                             )}
                         </motion.div>
 
                         <motion.button
                             type="submit"
-                            className="w-full bg-gradient-to-r from-purple-600 to-purple-800 text-white py-4 rounded-xl shadow-lg hover:shadow-xl hover:from-purple-700 hover:to-purple-900 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed font-semibold text-lg"
+                            className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-6 py-3 rounded-lg w-full text-lg font-medium tracking-wide hover:bg-gradient-to-l focus:outline-none focus:ring-4 focus:ring-purple-300"
                             disabled={isSubmitting}
                             whileHover={{ scale: 1.02 }}
                             whileTap={{ scale: 0.98 }}
                         >
-                            {isSubmitting ? (
-                                <span className="flex items-center justify-center gap-3">
-                                    <div className="w-6 h-6 border-3 border-white border-t-transparent rounded-full animate-spin" />
-                                    Submitting...
-                                </span>
-                            ) : (
-                                "Submit Registration"
-                            )}
+                            {isSubmitting ? "Submitting..." : "Submit"}
                         </motion.button>
                     </form>
                 </motion.div>
             </motion.div>
-
-            <style jsx global>{`
-            @keyframes shake {
-                0%, 100% { transform: translateX(0); }
-                25% { transform: translateX(-10px); }
-                75% { transform: translateX(10px); }
-            }
-            
-            .shake {
-                animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
-            }
-
-            .error-message {
-                color: #dc2626;
-                font-size: 0.875rem;
-                margin-top: 0.25rem;
-            }
-        `}</style>
         </div>
     );
 };
