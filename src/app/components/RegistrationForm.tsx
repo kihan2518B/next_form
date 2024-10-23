@@ -184,10 +184,14 @@ const RegistrationForm = () => {
                     <div className="flex items-center justify-center gap-3 mb-8">
                         <Sparkles className="h-8 w-8 text-purple-600" />
                         <h2 className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-purple-800 p-2 bg-clip-text text-transparent">
-                            તળ વિસનગર નાગર સમાજ
+                            Talent Registration Form
                         </h2>
                     </div>
-
+                    <div className="font-semibold text-purple-500 pb-3 text-center">
+                        <h4>
+                            તળ વિસનગર નાગર સમાજ અને તળ વિસનગર યુવક મંડળ દ્વારા આયોજિત સ્નેહ સંમેલન રજીસ્ટ્રેશન ફોર્મ
+                        </h4>
+                    </div>
                     <form onSubmit={handleSubmit} className="space-y-8">
                         {Object.keys(errors).length > 0 && (
                             <motion.div
