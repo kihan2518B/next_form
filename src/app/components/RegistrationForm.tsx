@@ -43,7 +43,7 @@ const RegistrationForm = () => {
     // Calculate time left until deadline
     useEffect(() => {
         const updateDeadline = () => {
-            const deadline = new Date("2024-11-10T23:59:59");
+            const deadline = new Date("2024-11-16T23:59:59");
             const now = new Date();
             const diff = deadline.getTime() - now.getTime();
 
