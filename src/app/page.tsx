@@ -1,7 +1,7 @@
 "use client"
-import RegistrationForm from "@/app/components/RegistrationForm";
 import Loader from "@/app/components/Loader";
 import { useState } from "react";
+import { RegistrationClosed } from "./components/RegistrationForm";
 
 export default function Home() {
   const [showRegistrationForm, setShowRegistrationForm] = useState<boolean>(false)
@@ -10,7 +10,7 @@ export default function Home() {
     setShowRegistrationForm(true)
   }, 4500)
 
-  if (showRegistrationForm) return <RegistrationForm />
+  if (showRegistrationForm) return <RegistrationClosed />
   else {
     return (
       <div className="flex justify-center items-center h-screen w-full">

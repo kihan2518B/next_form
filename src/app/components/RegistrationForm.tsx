@@ -22,7 +22,7 @@ type FormData = {
     otherTalent: string;
 };
 
-const RegistrationForm = () => {
+export const RegistrationForm = () => {
     const [formData, setFormData] = useState<FormData>({
         name: "",
         address: "",
@@ -294,4 +294,69 @@ const RegistrationForm = () => {
     );
 };
 
-export default RegistrationForm;
+import { XOctagon, CalendarX } from "lucide-react";
+
+export const RegistrationClosed = () => {
+  return (
+    <div className="min-h-screen py-12 px-4 bg-gradient-to-r from-gray-900 to-gray-800">
+      <div className="absolute inset-0 overflow-hidden rounded-xl">
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute top-0 left-0 w-40 h-40 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl animate-blob"></div>
+          <div className="absolute top-0 right-0 w-40 h-40 bg-yellow-500 rounded-full mix-blend-multiply filter blur-xl animate-blob animation-delay-2000"></div>
+          <div className="absolute bottom-0 left-0 w-40 h-40 bg-pink-500 rounded-full mix-blend-multiply filter blur-xl animate-blob animation-delay-4000"></div>
+        </div>
+      </div>
+
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="max-w-2xl mx-auto"
+      >
+        <Alert className="mb-8 border-red-300 bg-red-50 shadow-lg">
+          <XOctagon className="h-5 w-5 text-red-600" />
+          <AlertTitle className="text-red-800 font-semibold">Registration Closed</AlertTitle>
+          <AlertDescription className="text-red-700">
+            The registration deadline has passed. We are no longer accepting new submissions.
+          </AlertDescription>
+        </Alert>
+
+        <motion.div
+          className="backdrop-blur-lg bg-white p-8 rounded-2xl shadow-xl border border-purple-100"
+          initial={{ scale: 0.95 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 0.3 }}
+        >
+          <div className="flex items-center justify-center gap-3 mb-8">
+            <CalendarX className="h-8 w-8 text-purple-600" />
+            <h2 className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-purple-800 p-2 bg-clip-text text-transparent">
+              Registration Period Ended
+            </h2>
+          </div>
+          
+          <div className="font-semibold text-purple-500 pb-3 text-center">
+            <h4>
+              તળ વિસનગર નાગર સમાજ અને તળ વિસનગર યુવક મંડળ દ્વારા આયોજિત સ્નેહ સંમેલન
+            </h4>
+          </div>
+
+          <div className="text-center space-y-6 mt-8">
+            <div className="flex justify-center">
+              <Clock className="h-16 w-16 text-gray-400" />
+            </div>
+            <p className="text-xl text-gray-600">
+              Thank you for your interest in participating.
+            </p>
+            <p className="text-gray-500">
+              The registration period for this event has ended. We look forward to seeing all registered participants at the event.
+            </p>
+            <div className="bg-purple-50 p-6 rounded-xl mt-8">
+              <p className="text-purple-600">
+                For any queries regarding your existing registration or the event, please contact the event organizers.
+              </p>
+            </div>
+          </div>
+        </motion.div>
+      </motion.div>
+    </div>
+  );
+};
